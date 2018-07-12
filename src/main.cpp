@@ -55,6 +55,8 @@ char operatorType_to_char(const OperatorType oType)
 	case OperatorType::multiply:	charachter = '*'; break;
 	default:						charachter = '0'; break;
 	}
+
+	return charachter;
 }
 
 std::vector<Token> parse_equation(std::string equation)
@@ -105,7 +107,7 @@ void print_tokenList(const std::vector<Token>& tokenList)
 
 int main()
 {
-	std::string equation = "2+2";
+	std::string equation = "1.2+3.5*1.1-3/2";
 	auto tokenList = parse_equation(equation);
 	print_tokenList(tokenList);
 
