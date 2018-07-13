@@ -9,7 +9,7 @@ OperatorType char_to_operatorType(const char charachter)
 	for (auto def : DEFINED_OPERATORS)
 		if (charachter == def.charachter)
 			return def.type;
-	
+
 	return OperatorType::UNKNOWN;
 }
 
@@ -27,7 +27,7 @@ std::vector<Token> parse_equation(std::string equation)
 	std::string originalEquation = equation; // just for debug perpos
 	int index = 0;
 	std::vector<Token> temporary;
-	while(equation.length() != 0)
+	while (equation.length() != 0)
 	{
 		Token token;
 		token.type = TokenType::UNKNOWN;
@@ -82,12 +82,45 @@ void print_tokenList(const std::vector<Token>& tokenList)
 
 double evaluate(std::vector<Token> tokenList)
 {
-	return 0.0;
+	// step(1): do all multiplication and devide
+	bool md_done = false;
+	while(!md_done)
+	{
+		std::vector<Token> outPut;
+		md_done = true;
+		outPut.push_back(tokenList[0]);
+		for (int i = 1; i < tokenList.size(); i++)
+		{
+			outPut.push_back(tokenList[i]);
+			if (tokenList[i].type == TokenType::Operator)
+			{
+				if (!(tokenList[i].value.oType == OperatorType::multiply || tokenList[i].value.oType == OperatorType::devid))
+					continue;
+				double no1 = tokenList[i - 1].value.number;
+				double no2 = tokenList[i + 1].value.number;
+				double result;
+				if (tokenList[i].value.oType == OperatorType::multiply)
+					result = no1*no2;
+				if (tokenList[i].value.oType == OperatorType::devid)
+					result = no1/no2;
+
+				Token& lastToken = outPut.back();
+				lastToken.type = TokenType::Number;
+				lastToken.value.number = result;
+				md_done = false;
+				for (int j = i + 2; j < tokenList.size(); j++) outPut.push_back(tokenList[j]);
+				break;
+			}
+		}
+		tokenList = outPut;
+	}
+	
+	return tokenList.back().value.number;
 }
 
 int main()
 {
-	std::string equation = "1.2+3.5*1.1-3/2";
+	std::string equation = "3*5/3/5";
 	auto tokenList = parse_equation(equation);
 	print_tokenList(tokenList);
 
