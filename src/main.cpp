@@ -1,62 +1,24 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
-enum class TokenType
-{
-	Number,
-	Operator,
-	UNKNOWN
-};
-
-enum class OperatorType
-{
-	plus=1,
-	minus,
-	devid,
-	multiply,
-	UNKNOWN
-};
-
-struct Token
-{
-	TokenType type;
-	union
-	{
-		double number;
-		OperatorType oType;
-	} value;
-};
+#include "internalTypes.hpp"
 
 OperatorType char_to_operatorType(const char charachter)
 {
-	OperatorType oType = OperatorType::UNKNOWN;
-
-	switch (charachter) 
-	{
-	case '+': oType = OperatorType::plus;		break;
-	case '-': oType = OperatorType::minus;		break;
-	case '/': oType = OperatorType::devid;		break;
-	case '*': oType = OperatorType::multiply;	break;
-	default:  oType = OperatorType::UNKNOWN;	break;
-	}
+	for (auto def : DEFINED_OPERATORS)
+		if (charachter == def.charachter)
+			return def.type;
 	
-	return oType;
+	return OperatorType::UNKNOWN;
 }
 
 char operatorType_to_char(const OperatorType oType)
 {
-	char charachter = '0';
-	switch (oType)
-	{
-	case OperatorType::plus:		charachter = '+'; break;
-	case OperatorType::minus:		charachter = '-'; break;
-	case OperatorType::devid:		charachter = '/'; break;
-	case OperatorType::multiply:	charachter = '*'; break;
-	default:						charachter = '0'; break;
-	}
+	for (auto def : DEFINED_OPERATORS)
+		if (oType == def.type)
+			return def.charachter;
 
-	return charachter;
+	return '0';
 }
 
 std::vector<Token> parse_equation(std::string equation)
@@ -92,17 +54,21 @@ std::vector<Token> parse_equation(std::string equation)
 	return temporary;
 }
 
+void print_token(const Token& token)
+{
+	std::string typeName = (token.type == TokenType::Number) ? "Number" : "Operator";
+	std::cout << "- Token: type: " << typeName << ", value: ";
+
+	if (token.type == TokenType::Number)
+		std::cout << token.value.number << std::endl;
+	else
+		std::cout << operatorType_to_char(token.value.oType) << std::endl;
+}
+
 void print_tokenList(const std::vector<Token>& tokenList)
 {
 	for (const Token& token : tokenList)
-	{
-		std::string typeName = (token.type == TokenType::Number)? "Number" : "Operator";
-		std::cout << "- Token: type: " << typeName << ", value: ";
-		if (token.type == TokenType::Number)
-			std::cout << token.value.number << std::endl;
-		else
-			std::cout << operatorType_to_char(token.value.oType) << std::endl;
-	}
+		print_token(token);
 }
 
 int main()
