@@ -33,6 +33,8 @@ std::vector<Token> parse_equation(std::string equation)
 		token.type = TokenType::UNKNOWN;
 		token.index = index;
 
+		if (equation[0] == ' ') { index += 1; equation = equation.substr(1); } // skip spaces
+
 		// Operator
 		OperatorType oType = char_to_operatorType(equation[0]);
 		if (oType != OperatorType::UNKNOWN)
@@ -78,11 +80,18 @@ void print_tokenList(const std::vector<Token>& tokenList)
 		print_token(token);
 }
 
+double evaluate(std::vector<Token> tokenList)
+{
+	return 0.0;
+}
+
 int main()
 {
 	std::string equation = "1.2+3.5*1.1-3/2";
 	auto tokenList = parse_equation(equation);
 	print_tokenList(tokenList);
+
+	std::cout << "- Value of equation: " << equation << " = " << evaluate(tokenList) << std::endl;
 
 	std::cin.get();
 	return 0;
