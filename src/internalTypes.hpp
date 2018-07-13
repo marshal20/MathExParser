@@ -25,6 +25,7 @@ struct Token
 		double number;
 		OperatorType oType;
 	} value;
+	int index;
 };
 
 struct OperatorDefinition

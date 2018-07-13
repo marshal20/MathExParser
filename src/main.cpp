@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <vector>
 #include "internalTypes.hpp"
@@ -23,11 +24,14 @@ char operatorType_to_char(const OperatorType oType)
 
 std::vector<Token> parse_equation(std::string equation)
 {
+	std::string originalEquation = equation; // just for debug perpos
+	int index = 0;
 	std::vector<Token> temporary;
 	while(equation.length() != 0)
 	{
 		Token token;
 		token.type = TokenType::UNKNOWN;
+		token.index = index;
 
 		// Operator
 		OperatorType oType = char_to_operatorType(equation[0]);
@@ -36,6 +40,7 @@ std::vector<Token> parse_equation(std::string equation)
 			token.type = TokenType::Operator;
 			token.value.oType = oType;
 			temporary.push_back(token);
+			index += 1;
 			equation = equation.substr(1);
 			continue;
 		}
@@ -44,8 +49,10 @@ std::vector<Token> parse_equation(std::string equation)
 		double number = std::stod(equation, &processed);
 		if (processed != 0) // number
 		{
-			Token curToken = {TokenType::Number, number };
-			temporary.push_back(curToken);
+			token.type = TokenType::Number;
+			token.value.number = number;
+			temporary.push_back(token);
+			index += processed;
 			equation = equation.substr(processed);
 			continue;
 		}
@@ -57,7 +64,7 @@ std::vector<Token> parse_equation(std::string equation)
 void print_token(const Token& token)
 {
 	std::string typeName = (token.type == TokenType::Number) ? "Number" : "Operator";
-	std::cout << "- Token: type: " << typeName << ", value: ";
+	std::cout << "- Token: index(" << token.index << "), type: " << typeName << ", value: ";
 
 	if (token.type == TokenType::Number)
 		std::cout << token.value.number << std::endl;
