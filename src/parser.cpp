@@ -80,14 +80,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			Node* newhead = new Node;
 			zero_node(newhead);
 			head = get_lowest_parent(head, order);
-			newhead->parent = head->parent;
-			if (head->parent)
-			{
-				if (head->parent->cfirst == head)
-					head->parent->cfirst = newhead;
-				else
-					head->parent->csecond = newhead;
-			}
+			replace_node(head, newhead);
 			newhead->token = tokenList[i];
 			newhead->cfirst = head;
 			head = newhead;
@@ -99,10 +92,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			zero_node(newchild);
 			newchild->parent = head;
 			newchild->token = tokenList[i];
-			if(!head->cfirst)
-				head->cfirst = newchild;
-			else
-				head->csecond = newchild;
+			addchild_node(head, newchild);
 
 			head = newchild;
 		}
@@ -130,6 +120,7 @@ Node* get_lowest_parent(Node* curnode, int order)
 		else
 			break;
 	}
+
 	return curnode;
 }
 
