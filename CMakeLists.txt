@@ -5,6 +5,9 @@ project(MathExParser)
 set(SRC 
 		src/main.cpp
 		src/internalTypes.hpp
-		src/internalTypes.cpp)
+		src/internalTypes.cpp
+		src/parser.hpp
+		src/parser.cpp
+		)
 
 add_executable(MathExParser ${SRC})
