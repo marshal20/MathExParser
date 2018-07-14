@@ -5,9 +5,10 @@
 
 int main()
 {
-	std::string equation = "3*5/3/5";
+	std::string equation = "5+5";
 	auto tokenList = parse_equation(equation);
 	print_tokenList(tokenList);
+	Node* node = parse_tokenList(tokenList);
 
 	std::cout << "- Value of equation: " << equation << " = " << evaluate(tokenList) << std::endl;
 

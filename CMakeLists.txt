@@ -8,6 +8,8 @@ set(SRC
 		src/internalTypes.cpp
 		src/parser.hpp
 		src/parser.cpp
+		src/node.hpp
+		src/node.cpp
 		)
 
 add_executable(MathExParser ${SRC})

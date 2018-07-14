@@ -35,3 +35,5 @@ struct OperatorDefinition
 };
 
 extern std::array<OperatorDefinition, 4> DEFINED_OPERATORS;
+
+extern int get_token_order(const Token& token);

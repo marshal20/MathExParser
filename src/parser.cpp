@@ -61,6 +61,55 @@ std::vector<Token> parse_equation(std::string equation)
 	return temporary;
 }
 
+Node* parse_tokenList(const std::vector<Token>& tokenList)
+{
+	if (tokenList.size() == 0) return nullptr;
+
+	// preparing the first node
+	Node* head = new Node;
+	zero_node(head);
+	head->token = tokenList[0];
+
+	for (int i = 1; i < tokenList.size(); i++)
+	{
+		int order = get_token_order(tokenList[i]);
+		int headorder = get_token_order((const Token&)*head);
+		if (order > headorder)
+		{
+			// replace the head, the old head becomes a child
+			Node* newhead = new Node;
+			zero_node(newhead);
+			newhead->parent = head->parent;
+			if (head->parent)
+			{
+				if (head->parent->cfirst == head)
+					head->parent->cfirst = newhead;
+				else
+					head->parent->csecond = newhead;
+			}
+			newhead->token = tokenList[i];
+			newhead->cfirst = head;
+			head = newhead;
+		}
+		else
+		{
+			// become a child of the current head
+			Node* newchild = new Node;
+			zero_node(newchild);
+			newchild->parent = head;
+			newchild->token = tokenList[i];
+			if(!head->cfirst)
+				head->cfirst = newchild;
+			else
+				head->csecond = newchild;
+		}
+	}
+
+	// go up till the origin tree
+	while (head)
+		head = head->parent;
+}
+
 void print_token(const Token& token)
 {
 	std::string typeName = (token.type == TokenType::Number) ? "Number" : "Operator";
