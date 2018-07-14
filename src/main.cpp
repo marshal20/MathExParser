@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "parser.hpp"
-
+#include "utils.hpp"
 
 int main()
 {

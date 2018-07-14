@@ -10,6 +10,8 @@ set(SRC
 		src/parser.cpp
 		src/node.hpp
 		src/node.cpp
+		src/utils.hpp
+		src/utils.cpp
 		)
 
 add_executable(MathExParser ${SRC})
