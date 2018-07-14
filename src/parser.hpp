@@ -5,8 +5,13 @@
 
 extern OperatorType char_to_operatorType(const char charachter);
 extern char operatorType_to_char(const OperatorType oType);
+
 extern std::vector<Token> parse_equation(std::string equation);
 extern Node* parse_tokenList(const std::vector<Token>& tokenList);
+extern Node* get_lowest_parent(Node* curnode, int order);
+
 extern void print_token(const Token& token);
 extern void print_tokenList(const std::vector<Token>& tokenList);
+extern void print_node(Node* node, std::string offset = "");
+
 extern double evaluate(std::vector<Token> tokenList);

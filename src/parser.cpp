@@ -74,11 +74,12 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 	{
 		int order = get_token_order(tokenList[i]);
 		int headorder = get_token_order((const Token&)*head);
-		if (order > headorder)
+		if (order > headorder && order != 0)
 		{
 			// replace the head, the old head becomes a child
 			Node* newhead = new Node;
 			zero_node(newhead);
+			head = get_lowest_parent(head, order);
 			newhead->parent = head->parent;
 			if (head->parent)
 			{
@@ -102,12 +103,34 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 				head->cfirst = newchild;
 			else
 				head->csecond = newchild;
+
+			head = newchild;
+		}
+
+		{
+			Node* temp = head;
+			while (temp->parent)
+				temp = temp->parent;
+			print_node(temp);
+			std::cout << "---------------------------------------" << std::endl;
 		}
 	}
 
 	// go up till the origin tree
-	while (head)
+	while (head->parent)
 		head = head->parent;
+}
+
+Node* get_lowest_parent(Node* curnode, int order)
+{
+	while (curnode->parent)
+	{
+		if (get_token_order(curnode->parent->token) < order)
+			curnode = curnode->parent;
+		else
+			break;
+	}
+	return curnode;
 }
 
 void print_token(const Token& token)
@@ -125,6 +148,17 @@ void print_tokenList(const std::vector<Token>& tokenList)
 {
 	for (const Token& token : tokenList)
 		print_token(token);
+}
+
+void print_node(Node* node, std::string offset)
+{
+	std::cout << offset;
+	print_token(node->token);
+	offset += "\t";
+	if (node->cfirst)
+		print_node(node->cfirst, offset);
+	if (node->csecond)
+		print_node(node->csecond, offset);
 }
 
 double evaluate(std::vector<Token> tokenList)
