@@ -5,6 +5,7 @@ enum class TokenType
 {
 	Number,
 	Operator,
+	Group,
 	UNKNOWN
 };
 

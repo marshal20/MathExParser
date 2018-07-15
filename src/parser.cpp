@@ -98,14 +98,20 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			for (int j = i + 1; j < closebracket; j++)
 				newExpression.push_back(tokenList[j]);
 
-			Node* newhead = parse_tokenList(newExpression);
+			Node* newexp = parse_tokenList(newExpression);
+			Node* newgroup = new Node;
+			zero_node(newgroup);
+			newexp->token.index = i;
+			newexp->token.type = TokenType::Group;
+			newexp->parent = newgroup;
+			addchild_node(newgroup, newexp);
 			if (head)
 			{
-				newhead->parent = head;
-				addchild_node(head, newhead);
+				newgroup->parent = head;
+				addchild_node(head, newgroup);
 			}
 
-			head = newhead;
+			head = newgroup;
 			i = closebracket+1;
 			continue;
 		}
