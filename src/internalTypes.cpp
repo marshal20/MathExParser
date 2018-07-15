@@ -3,7 +3,7 @@
 std::array<OperatorDefinition, 6> DEFINED_OPERATORS{ {
 	{ '+', OperatorType::plus },
 	{ '-', OperatorType::minus },
-	{ '/', OperatorType::devid },
+	{ '/', OperatorType::divide },
 	{ '*', OperatorType::multiply },
 	{ '(', OperatorType::openBracket },
 	{ ')', OperatorType::closeBracket }
@@ -19,7 +19,7 @@ int get_token_order(const Token& token)
 
 	if (token.type == TokenType::Operator)
 	{
-		if (token.value.oType == OperatorType::devid)
+		if (token.value.oType == OperatorType::divide)
 			return 2;
 		if (token.value.oType == OperatorType::multiply)
 			return 3;

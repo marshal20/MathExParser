@@ -13,7 +13,7 @@ enum class OperatorType
 {
 	plus = 1,
 	minus,
-	devid,
+	divide,
 	multiply,
 	openBracket,
 	closeBracket,

@@ -24,7 +24,7 @@ double multiply(const Node* node)
 	return value;
 }
 
-double devide(const Node* node)
+double divide(const Node* node)
 {
 	double value = evaluate(node->childList[0]);
 	for (int i = 1; i < node->childList.size(); i++)
@@ -47,8 +47,9 @@ double evaluate(const Node* node)
 			case OperatorType::plus: return plus(node);
 			case OperatorType::minus: return minus(node);
 			case OperatorType::multiply: return multiply(node);
-			case OperatorType::devid: return devide(node);
+			case OperatorType::divide: return divide(node);
 			}
 	}
 	
+	return 0.0;
 }
