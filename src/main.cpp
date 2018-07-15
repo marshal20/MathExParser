@@ -5,7 +5,7 @@
 
 int main()
 {
-	std::string equation = "5*2+1+3+6+9*2-8";
+	std::string equation = "5*2+1+3+(6+9)*2-8";
 	auto tokenList = parse_equation(equation);
 	//print_tokenList(tokenList);
 

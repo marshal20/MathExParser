@@ -62,6 +62,22 @@ std::vector<Token> parse_equation(std::string equation)
 	return temporary;
 }
 
+int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
+{
+	int level = 0;
+	for (int i = openBracket; i < tokenList.size(); i++)
+	{
+		if (tokenList[i].type != TokenType::Operator) continue;
+		if (tokenList[i].value.oType == OperatorType::openBracket)
+			level++;
+		if (tokenList[i].value.oType == OperatorType::closeBracket)
+			level--;
+		if (level == 0)
+			return i;
+	}
+	return -1;
+}
+
 Node* parse_tokenList(const std::vector<Token>& tokenList)
 {
 	if (tokenList.size() == 0) return nullptr;
@@ -73,7 +89,28 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 
 	for (int i = 1; i < tokenList.size(); i++)
 	{
-		int order = get_token_order(tokenList[i]);
+		const Token& curtoken = tokenList[i];
+		// handle bracket
+		if (curtoken.type == TokenType::Operator && curtoken.value.oType == OperatorType::openBracket)
+		{
+			int closebracket = get_close_pracket(i, tokenList);
+			std::vector<Token> newExpression; //newExpression.reserve(closebracket - i);
+			for (int j = i + 1; j < closebracket; j++)
+				newExpression.push_back(tokenList[j]);
+
+			Node* newhead = parse_tokenList(newExpression);
+			if (head)
+			{
+				newhead->parent = head;
+				addchild_node(head, newhead);
+			}
+
+			head = newhead;
+			i = closebracket+1;
+			continue;
+		}
+
+		int order = get_token_order(curtoken);
 		int headorder = get_token_order((const Token&)*head);
 		if (order > headorder && order != 0)
 		{
@@ -82,7 +119,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			zero_node(newhead);
 			head = get_lowest_parent(head, order);
 			replace_node(head, newhead);
-			newhead->token = tokenList[i];
+			newhead->token = curtoken;
 			newhead->cfirst = head;
 			head = newhead;
 		}
@@ -92,7 +129,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			Node* newchild = new Node;
 			zero_node(newchild);
 			newchild->parent = head;
-			newchild->token = tokenList[i];
+			newchild->token = curtoken;
 			addchild_node(head, newchild);
 
 			head = newchild;
