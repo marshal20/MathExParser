@@ -7,7 +7,6 @@ extern OperatorType char_to_operatorType(const char charachter);
 extern char operatorType_to_char(const OperatorType oType);
 
 extern std::vector<Token> parse_equation(std::string equation);
-extern Node* parse_tokenList(const std::vector<Token>& tokenList);
 extern Node* get_lowest_parent(Node* curnode, int order);
 
 extern double evaluate(std::vector<Token> tokenList);

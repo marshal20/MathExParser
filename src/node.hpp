@@ -1,12 +1,12 @@
 #pragma once
 #include "internalTypes.hpp"
+#include <vector>
 
 struct Node
 {
 	Node* parent;
 	Token token;
-	Node* cfirst;
-	Node* csecond;
+	std::vector<Node*> childList;
 };
 
 extern void zero_node(Node* node);

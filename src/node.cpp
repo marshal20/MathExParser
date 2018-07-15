@@ -5,16 +5,15 @@ void zero_node(Node* node)
 	if (!node) return;
 
 	node->parent = nullptr;
-	node->cfirst = nullptr;
-	node->csecond = nullptr;
+	node->childList.clear();
 }
 
 void free_node(Node* node)
 {
-	if (node->cfirst)
-		free_node(node->cfirst);
-	if (node->csecond)
-		free_node(node->csecond);
+	// free every child first
+	for(Node* child : node->childList)
+		if(child)
+			free_node(child);
 
 	delete node;
 }
@@ -22,20 +21,16 @@ void free_node(Node* node)
 void replace_node(Node* node, Node* with)
 {
 	with->parent = node->parent;
+	addchild_node(with, node);
+	// replace the child in the parent
 	if (node->parent)
-	{
-		if (node->parent->cfirst == node)
-			node->parent->cfirst = with;
-		else if (node->parent->csecond == node)
-			node->parent->csecond = with;
-	}
+		for (auto& child : with->parent->childList)
+			if (child == node)
+				child = with;
 }
 
 void addchild_node(Node* node, Node* child)
 {
 	child->parent = node;
-	if (!node->cfirst)
-		node->cfirst = child;
-	else if (!node->csecond)
-		node->csecond = child;
+	node->childList.push_back(child);
 }
