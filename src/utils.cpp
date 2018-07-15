@@ -20,13 +20,13 @@ void print_tokenList(const std::vector<Token>& tokenList)
 		print_token(token);
 }
 
-void print_node(Node* node, std::string offset)
+void print_node(const Node* node, std::string offset)
 {
 	std::cout << offset;
 	print_token(node->token);
 	offset += "\t";
-	if (node->cfirst)
-		print_node(node->cfirst, offset);
-	if (node->csecond)
-		print_node(node->csecond, offset);
+
+	// print all the child
+	for (const Node* node : node->childList)
+		print_node(node, offset);
 }

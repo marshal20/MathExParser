@@ -1,5 +1,10 @@
 #include "node.hpp"
 
+Node* new_node()
+{
+	return new Node;
+}
+
 void zero_node(Node* node)
 {
 	if (!node) return;
@@ -23,7 +28,7 @@ void replace_node(Node* node, Node* with)
 	with->parent = node->parent;
 	addchild_node(with, node);
 	// replace the child in the parent
-	if (node->parent)
+	if (with->parent)
 		for (auto& child : with->parent->childList)
 			if (child == node)
 				child = with;

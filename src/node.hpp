@@ -9,6 +9,7 @@ struct Node
 	std::vector<Node*> childList;
 };
 
+extern Node* new_node();
 extern void zero_node(Node* node);
 extern void free_node(Node* node);
 extern void replace_node(Node* node, Node* with);
