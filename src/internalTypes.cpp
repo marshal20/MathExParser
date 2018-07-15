@@ -19,12 +19,14 @@ int get_token_order(const Token& token)
 
 	if (token.type == TokenType::Operator)
 	{
-		if (token.value.oType == OperatorType::multiply || token.value.oType == OperatorType::devid)
+		if (token.value.oType == OperatorType::devid)
 			return 2;
-		if (token.value.oType == OperatorType::minus)
+		if (token.value.oType == OperatorType::multiply)
 			return 3;
-		if (token.value.oType == OperatorType::plus)
+		if (token.value.oType == OperatorType::minus)
 			return 4;
+		if (token.value.oType == OperatorType::plus)
+			return 5;
 	}
 
 	return -1;

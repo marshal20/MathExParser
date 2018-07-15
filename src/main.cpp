@@ -7,7 +7,7 @@
 
 int main()
 {
-	std::string equation = "1*20-2+3-4-6";
+	std::string equation = "5/3*3";
 	auto tokenList = parse_equation(equation);
 	//print_tokenList(tokenList);
 
