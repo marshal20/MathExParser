@@ -62,7 +62,7 @@ std::vector<Token> parse_equation(std::string equation)
 	return temporary;
 }
 
-double evaluate(std::vector<Token> tokenList)
+/*double evaluate(std::vector<Token> tokenList)
 {
 	// step(1): do all multiplication and devide
 	bool md_done = false;
@@ -98,4 +98,4 @@ double evaluate(std::vector<Token> tokenList)
 	}
 
 	return tokenList.back().value.number;
-}
+}*/

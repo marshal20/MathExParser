@@ -3,17 +3,18 @@
 #include "parser.hpp"
 #include "utils.hpp"
 #include "lester.hpp"
+#include "evaluate.hpp"
 
 int main()
 {
-	std::string equation = "5*2*1*2+1+3+2*6-1-2-9/3+3";
+	std::string equation = "1*20-2+3-4-6";
 	auto tokenList = parse_equation(equation);
 	//print_tokenList(tokenList);
 
 	Node* head = parse_tokenList(tokenList);
 	print_node(head);
 
-	//std::cout << "- Value of equation: " << equation << " = " << evaluate(tokenList) << std::endl;
+	std::cout << "- Value of equation: " << equation << " = " << evaluate(head) << std::endl;
 
 	std::cin.get();
 
