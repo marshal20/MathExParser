@@ -46,7 +46,7 @@ std::vector<Token> parse_equation(std::string equation)
 			continue;
 		}
 
-		unsigned int processed;
+		size_t processed;
 		double number = std::stod(equation, &processed);
 		if (processed != 0) // number
 		{
