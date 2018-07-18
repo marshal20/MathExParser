@@ -10,6 +10,7 @@ std::string strtokenType(TokenType tokenType)
 	case TokenType::Number: return "Number";
 	case TokenType::Operator: return "Operator";
 	case TokenType::Group: return "Group";
+	case TokenType::Name: return "Name";
 	case TokenType::UNKNOWN: return "UNKNOWN";
 	default: return "UNDEFINED";
 	}
@@ -20,7 +21,8 @@ std::string strtokenvalue(const Token& token)
 	switch (token.type)
 	{
 	case TokenType::Number: return std::to_string(token.value.number);
-	case TokenType::Operator: operatorType_to_char(token.value.oType);
+	case TokenType::Operator: return std::string() + operatorType_to_char(token.value.oType);
+	case TokenType::Name: return token.innerText;
 	default: return "";
 	}
 }
