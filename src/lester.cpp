@@ -17,20 +17,16 @@ Node* get_lowest_parent(Node* curnode, int order)
 	return curnode;
 }
 
-// TODO: update this function to use the builtin level variable
 int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 {
-	int level = 0;
+	int curLevel = tokenList[openBracket].level;
 	for (int i = openBracket; i < tokenList.size(); i++)
 	{
 		if (tokenList[i].type != TokenType::Operator) continue;
-		if (tokenList[i].value.oType == OperatorType::openBracket)
-			level++;
-		if (tokenList[i].value.oType == OperatorType::closeBracket)
-			level--;
-		if (level == 0)
+		if (tokenList[i].value.oType == OperatorType::closeBracket && tokenList[i].level == curLevel)
 			return i;
 	}
+
 	return -1;
 }
 

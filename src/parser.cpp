@@ -54,6 +54,7 @@ std::vector<Token> parse_equation(std::string equation)
 			// level managing (Brackets)
 			if (oType == OperatorType::openBracket) level++;
 			else if (oType == OperatorType::closeBracket) level--;
+			if (oType == OperatorType::closeBracket) token.level = level;
 
 			token.type = TokenType::Operator;
 			token.value.oType = oType;
