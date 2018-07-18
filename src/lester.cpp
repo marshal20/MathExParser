@@ -76,6 +76,27 @@ Node* number_token(Node* head, const Token& token)
 	return newnode;
 }
 
+Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBracket, int closeBracket)
+{
+	const Token& token = tokenList[openBracket];
+
+	std::vector<Token> grouptokenList;
+	// from first token inside the brackets to the last
+	for (int j = openBracket + 1; j < closeBracket; j++)
+		grouptokenList.push_back(tokenList[j]);
+	Node* groupHead = parse_tokenList(grouptokenList);
+
+	Node* group = new_node();
+	zero_node(group);
+	group->token.index = token.index;
+	group->token.type = TokenType::Group;
+	addchild_node(group, groupHead);
+
+	if (head) addchild_node(head, group);
+
+	return group;
+}
+
 Node* parse_tokenList(const std::vector<Token>& tokenList)
 {
 	Node* head = nullptr;
@@ -88,19 +109,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 		if (token.type == TokenType::Operator && token.value.oType == OperatorType::openBracket)
 		{
 			int closebracket = get_close_pracket(i, tokenList);
-			std::vector<Token> grouptokenList;
-			for (int j = i + 1; j < closebracket; j++)
-				grouptokenList.push_back(tokenList[j]);
-			Node* groupHead = parse_tokenList(grouptokenList);
-			
-			Node* group = new_node();
-			zero_node(group);
-			group->token.index = token.index;
-			group->token.type = TokenType::Group;
-			addchild_node(head, group);
-			addchild_node(group, groupHead);
-
-			head = group;
+			head = handleGroup(tokenList, head, i, closebracket);
 			i = closebracket;
 			continue;
 		}
