@@ -7,7 +7,7 @@
 
 int main()
 {
-	std::string equation = "5*(3+1)+2";
+	std::string equation = "5*pi(3+1)+2";
 	auto tokenList = parse_equation(equation);
 
 	Node* head = parse_tokenList(tokenList);

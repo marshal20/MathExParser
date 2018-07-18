@@ -97,6 +97,24 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	return group;
 }
 
+Node* name_token(Node* head, const Token& token)
+{
+	if (!head)
+	{
+		Node* newnode = new_node();
+		zero_node(newnode);
+		newnode->token = token;
+		return newnode;
+	}
+
+	// just become a child of the current node
+	Node* newnode = new_node();
+	zero_node(newnode);
+	newnode->token = token;
+	addchild_node(head, newnode);
+	return newnode;
+}
+
 Node* parse_tokenList(const std::vector<Token>& tokenList)
 {
 	Node* head = nullptr;
@@ -117,6 +135,8 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 		if (token.type == TokenType::Operator)
 			head = basic_operator_token(head, token);
 		else if (token.type == TokenType::Number)
+			head = number_token(head, token);
+		else if (token.type == TokenType::Name)
 			head = number_token(head, token);
 	}
 
