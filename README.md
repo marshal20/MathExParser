@@ -1,5 +1,5 @@
 # MathExParser
-Parse and evaluating math expressions.
+Parse and evaluate math expressions, with function and constants support.
 
 ## TODO:
 - [ ] Move the code to a separate library.
