@@ -7,7 +7,7 @@
 
 int main()
 {
-	std::string equation = "5*max(3,2)+2";
+	std::string equation = "5*max(0,sin(2))+2";
 	auto tokenList = parse_equation(equation);
 
 	Node* head = parse_tokenList(tokenList);

@@ -34,6 +34,7 @@ struct Token
 		OperatorType oType;
 	} value;
 	std::string innerText;
+	int level;
 	int index;
 };
 
