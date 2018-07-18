@@ -1,12 +1,13 @@
 #include "internalTypes.hpp"
 
-std::array<OperatorDefinition, 6> DEFINED_OPERATORS{ {
+std::array<OperatorDefinition, 7> DEFINED_OPERATORS{ {
 	{ '+', OperatorType::plus },
 	{ '-', OperatorType::minus },
 	{ '/', OperatorType::divide },
 	{ '*', OperatorType::multiply },
 	{ '(', OperatorType::openBracket },
-	{ ')', OperatorType::closeBracket }
+	{ ')', OperatorType::closeBracket },
+	{ ',', OperatorType::comma }
 } };
 
 int get_token_order(const Token& token)

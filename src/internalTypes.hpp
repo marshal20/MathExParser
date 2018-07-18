@@ -20,6 +20,7 @@ enum class OperatorType
 
 	openBracket,
 	closeBracket,
+	comma,
 
 	UNKNOWN
 };
@@ -42,6 +43,6 @@ struct OperatorDefinition
 	OperatorType type;
 };
 
-extern std::array<OperatorDefinition, 6> DEFINED_OPERATORS;
+extern std::array<OperatorDefinition, 7> DEFINED_OPERATORS;
 
 extern int get_token_order(const Token& token);

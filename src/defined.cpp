@@ -1,6 +1,6 @@
 #include "defined.hpp"
 
-double def_pi = 3.14159265359;
+const double def_pi = 3.141592653589793;
 
 double def_sin(const Args& args)
 {

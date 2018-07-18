@@ -51,11 +51,19 @@ double group(const Node* node)
 
 double name(const Node* node)
 {
-	auto found = definedConst.find(node->token.innerText);
-	// return 1 if we haven't found the constant
-	if (found == definedConst.end()) return 1;
+	// function
+	auto ffound = definedFunc.find(node->token.innerText);
+	if (ffound != definedFunc.end()) {
+		Args args;
+		args.push_back(evaluate(node->childList[0]));
+		return ffound->second(args);
+	}
 
-	double value = found->second;
+	// constant
+	auto cfound = definedConst.find(node->token.innerText);
+	if (cfound == definedConst.end()) return 1;
+
+	double value = cfound->second;
 	for (int i = 0; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
 	return value;
