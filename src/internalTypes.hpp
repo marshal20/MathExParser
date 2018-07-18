@@ -1,11 +1,13 @@
 #pragma once
 #include <array>
+#include <string>
 
 enum class TokenType
 {
 	Number,
 	Operator,
 	Group,
+	Name,
 	UNKNOWN
 };
 
@@ -30,6 +32,7 @@ struct Token
 		double number;
 		OperatorType oType;
 	} value;
+	std::string innerText;
 	int index;
 };
 

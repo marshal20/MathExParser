@@ -2,6 +2,7 @@
 #include "utils.hpp"
 #include <string>
 #include <iostream>
+#include <regex>
 
 OperatorType char_to_operatorType(const char charachter)
 {
@@ -19,6 +20,16 @@ char operatorType_to_char(const OperatorType oType)
 			return def.charachter;
 
 	return '0';
+}
+
+// the name shouldn't start with numbers
+std::string getName(std::string full)
+{
+	std::regex azNamerx("^([a-zA-z][a-zA-z0-9]*)");
+	std::smatch azMatch;
+	std::regex_search(full, azMatch, azNamerx);
+	if (azMatch.size() >= 1) return azMatch[0];
+	return "";
 }
 
 std::vector<Token> parse_equation(std::string equation)
@@ -43,6 +54,18 @@ std::vector<Token> parse_equation(std::string equation)
 			temporary.push_back(token);
 			index += 1;
 			equation = equation.substr(1);
+			continue;
+		}
+
+		// function or constant
+		std::string fname = getName(equation);
+		if (fname != "")
+		{
+			token.type = TokenType::Name;
+			token.innerText = fname;
+			temporary.push_back(token);
+			index += fname.length();
+			equation = equation.substr(fname.length());
 			continue;
 		}
 

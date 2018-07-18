@@ -16,6 +16,8 @@ set(SRC
 		src/lester.cpp
 		src/evaluate.hpp
 		src/evaluate.cpp
+		src/defined.hpp
+		src/defined.cpp
 		)
-
+		
 add_executable(MathExParser ${SRC})
