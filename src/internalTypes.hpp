@@ -15,8 +15,10 @@ enum class OperatorType
 	minus,
 	divide,
 	multiply,
+
 	openBracket,
 	closeBracket,
+
 	UNKNOWN
 };
 

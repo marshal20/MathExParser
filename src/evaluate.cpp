@@ -34,12 +34,24 @@ double divide(const Node* node)
 
 double number(const Node* node)
 {
-	return node->token.value.number;
+	double value = node->token.value.number;
+	for (int i = 0; i < node->childList.size(); i++)
+		value *= evaluate(node->childList[i]);
+	return value;
+}
+
+double group(const Node* node)
+{
+	double value = 1;
+	for (int i = 0; i < node->childList.size(); i++)
+		value *= evaluate(node->childList[i]);
+	return value;
 }
 
 double evaluate(const Node* node)
 {
 	switch (node->token.type) {
+		case TokenType::Group: return group(node);
 		case TokenType::Number: return number(node);
 		case TokenType::Operator:
 			switch (node->token.value.oType)

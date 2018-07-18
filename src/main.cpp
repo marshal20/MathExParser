@@ -7,7 +7,7 @@
 
 int main()
 {
-	std::string equation = "5/3*3/5*2/4*4*9";
+	std::string equation = "5*(3+1)+2";
 	auto tokenList = parse_equation(equation);
 
 	Node* head = parse_tokenList(tokenList);

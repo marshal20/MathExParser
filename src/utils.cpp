@@ -3,15 +3,36 @@
 #include <iostream>
 #include <string>
 
+std::string strtokenType(TokenType tokenType)
+{
+	switch (tokenType)
+	{
+	case TokenType::Number: return "Number";
+	case TokenType::Operator: return "Operator";
+	case TokenType::Group: return "Group";
+	case TokenType::UNKNOWN: return "UNKNOWN";
+	default: return "UNDEFINED";
+	}
+}
+
+std::string strtokenvalue(const Token& token)
+{
+	switch (token.type)
+	{
+	case TokenType::Number: return std::to_string(token.value.number);
+	case TokenType::Operator: operatorType_to_char(token.value.oType);
+	default: return "";
+	}
+}
+
 void print_token(const Token& token)
 {
-	std::string typeName = (token.type == TokenType::Number) ? "Number" : "Operator";
-	std::cout << "- Token: index(" << token.index << "), type: " << typeName << ", value: ";
-
-	if (token.type == TokenType::Number)
-		std::cout << token.value.number << std::endl;
-	else
-		std::cout << operatorType_to_char(token.value.oType) << std::endl;
+	std::string typeName = strtokenType(token.type);
+	std::string value = strtokenvalue(token);
+	std::cout << "- Token: index(" << token.index << "), type: " << typeName;
+	if (value != "")
+		std::cout << ", value: " << value;
+	std::cout << std::endl;
 }
 
 void print_tokenList(const std::vector<Token>& tokenList)

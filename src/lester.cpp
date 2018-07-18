@@ -83,6 +83,27 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 	for (int i = 0; i < tokenList.size(); i++)
 	{
 		const Token& token = tokenList[i];
+		
+		// check if we have a group inside brackets
+		if (token.type == TokenType::Operator && token.value.oType == OperatorType::openBracket)
+		{
+			int closebracket = get_close_pracket(i, tokenList);
+			std::vector<Token> grouptokenList;
+			for (int j = i + 1; j < closebracket; j++)
+				grouptokenList.push_back(tokenList[j]);
+			Node* groupHead = parse_tokenList(grouptokenList);
+			
+			Node* group = new_node();
+			zero_node(group);
+			group->token.index = token.index;
+			group->token.type = TokenType::Group;
+			addchild_node(head, group);
+			addchild_node(group, groupHead);
+
+			head = group;
+			i = closebracket;
+			continue;
+		}
 
 		if (token.type == TokenType::Operator)
 			head = basic_operator_token(head, token);
