@@ -80,18 +80,30 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 {
 	const Token& token = tokenList[openBracket];
 
-	std::vector<Token> grouptokenList;
+	std::vector<std::vector<Token>> grouptokenLists;
 	// from first token inside the brackets to the last
+	
 	for (int j = openBracket + 1; j < closeBracket; j++)
-		grouptokenList.push_back(tokenList[j]);
-	Node* groupHead = parse_tokenList(grouptokenList);
-
+	{
+		if (tokenList[j].type == TokenType::Operator && tokenList[j].value.oType == OperatorType::comma)
+		{
+			grouptokenLists.push_back(std::vector<Token>());
+			continue;
+		}
+		grouptokenLists.back().push_back(tokenList[j]);
+	}
+		
 	Node* group = new_node();
 	zero_node(group);
 	group->token.index = token.index;
 	group->token.type = TokenType::Group;
-	addchild_node(group, groupHead);
-
+	// add all the children which are separated with commas
+	for (const std::vector<Token>& sGroup : grouptokenLists)
+	{
+		Node* groupHead = parse_tokenList(sGroup);
+		addchild_node(group, groupHead);
+	}
+		
 	if (head) addchild_node(head, group);
 
 	return group;
