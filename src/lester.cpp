@@ -81,6 +81,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	const Token& token = tokenList[openBracket];
 
 	std::vector<std::vector<Token>> grouptokenLists;
+	grouptokenLists.push_back(std::vector<Token>());
 	// from first token inside the brackets to the last
 	
 	for (int j = openBracket + 1; j < closeBracket; j++)

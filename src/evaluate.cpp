@@ -55,7 +55,9 @@ double name(const Node* node)
 	auto ffound = definedFunc.find(node->token.innerText);
 	if (ffound != definedFunc.end()) {
 		Args args;
-		args.push_back(evaluate(node->childList[0]));
+		if (node->childList.size() == 0) return 1; // return if we have no groups
+		for(const Node* cnode : node->childList[0]->childList)
+			args.push_back(evaluate(cnode));
 		return ffound->second(args);
 	}
 
