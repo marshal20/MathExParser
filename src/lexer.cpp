@@ -1,5 +1,6 @@
 #include "lexer.hpp"
 #include "grammer.hpp"
+#include <string>
 #include <exception>
 
 

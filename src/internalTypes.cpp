@@ -1,5 +1,6 @@
 #include "internalTypes.hpp"
-
+#include <string>
+#include <exception>
 
 int get_token_order(const Token& token)
 {
@@ -26,5 +27,7 @@ int get_token_order(const Token& token)
 			return 7;
 	}
 
-	throw std::exception("Unknown order of token.");
+	std::string error_msg = std::string("Unknown order of token: ") 
+		+ token.innerText + ", index: " + std::to_string(token.index);
+	throw std::exception(error_msg.c_str());
 }

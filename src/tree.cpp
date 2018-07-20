@@ -1,6 +1,8 @@
 #include "tree.hpp"
 #include "lexer.hpp"
 #include "grammer.hpp"
+#include <string>
+#include <exception>
 
 Node* get_lowest_parent(Node* curnode, int order)
 {
