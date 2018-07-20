@@ -3,6 +3,7 @@
 #include "lexer.hpp"
 #include "grammer.hpp"
 #include <string>
+#include <cmath>
 
 void check_operator_values(const Node* node)
 {

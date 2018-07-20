@@ -1,4 +1,5 @@
 #include "defined.hpp"
+#include <cmath>
 
 const double def_pi = 3.141592653589793;
 const double def_e  = 2.718281828459045;
