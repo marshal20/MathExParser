@@ -25,7 +25,11 @@ void updateLevels(std::vector<Token>& tokenList)
 	}
 
 	if (level != 0)
-		throw std::exception("Close bracket token wasn't found.");
+	{
+		std::string error_msg = std::string("Close bracket token wasn't found, index: ")
+			+ std::to_string(tokenList.back().index);
+		throw std::exception(error_msg.c_str());
+	}
 }
 
 void tokenize(std::vector<Token>& tokenList, const std::vector<char>& parsed)

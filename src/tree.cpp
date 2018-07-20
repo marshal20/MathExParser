@@ -26,7 +26,9 @@ int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 			return i;
 	}
 
-	throw std::exception("Expected close bracket.");
+	std::string error_msg = std::string("Expected close bracket, index: ")
+		+ std::to_string(tokenList.back().index);
+	throw std::exception(error_msg.c_str());
 }
 
 
