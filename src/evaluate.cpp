@@ -11,7 +11,7 @@ void check_operator_values(const Node* node)
 		std::string error_msg =
 			std::string("Operator [") + node->token.innerText + "] can't be evaluated with less than 2 values, index: "
 			+ std::to_string(node->token.index);
-		throw std::exception(error_msg.c_str());
+		throw std::runtime_error(error_msg.c_str());
 	}
 	
 }
@@ -106,7 +106,7 @@ double name(const Node* node)
 
 	std::string error_msg = std::string("Undefined function or constant name: ")
 		+ node->token.innerText + ", index: " + std::to_string(node->token.index);
-	throw std::exception(error_msg.c_str());
+	throw std::runtime_error(error_msg.c_str());
 }
 
 double evaluate(const Node* node)
@@ -127,7 +127,7 @@ double evaluate(const Node* node)
 		default:
 			std::string error_msg = std::string("Can't evaluate node: ") + node->token.innerText 
 				+ ", index: " + std::to_string(node->token.index);
-			throw std::exception(error_msg.c_str());
+			throw std::runtime_error(error_msg.c_str());
 	}
 	
 	return 0.0;

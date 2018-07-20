@@ -71,7 +71,7 @@ TokenType get_charType(const char c)
 	if (DEFINED::BLANKCHARS.find(c) != std::string::npos)
 		return TokenType::UNKNOWN;
 
-	throw std::exception("Undefined charachter.");
+	throw std::runtime_error("Undefined charachter.");
 }
 
 bool is_new_token(const TokenType lastType, const char curC)
@@ -91,7 +91,7 @@ bool is_new_token(const TokenType lastType, const char curC)
 	if (lastType == TokenType::Number && DEFINED::NUMBER.find(curC) != std::string::npos)
 		return false;
 	else if (lastType == TokenType::Number && DEFINED::NAME.find(curC) != std::string::npos)
-		throw std::exception("Unexpecter name charachter after a number.");
+		throw std::runtime_error("Unexpecter name charachter after a number.");
 
 	return true;
 }

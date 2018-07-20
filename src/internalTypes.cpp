@@ -29,5 +29,5 @@ int get_token_order(const Token& token)
 
 	std::string error_msg = std::string("Unknown order of token: ") 
 		+ token.innerText + ", index: " + std::to_string(token.index);
-	throw std::exception(error_msg.c_str());
+	throw std::runtime_error(error_msg.c_str());
 }
