@@ -6,44 +6,36 @@ enum class TokenType
 {
 	Number,
 	Operator,
-	Group,
 	Name,
+	Group,
 	UNKNOWN
 };
 
 enum class OperatorType
 {
-	plus = 1,
-	minus,
-	divide,
-	multiply,
+	OpenBracket,
+	CloseBracket,
+	Dividor,
+	Operation,
+	UNKNOWN
+};
 
-	openBracket,
-	closeBracket,
-	comma,
-
+enum class MathOperationType
+{
+	Plus,
+	Minus,
+	Multiply,
+	Divide,
 	UNKNOWN
 };
 
 struct Token
 {
 	TokenType type;
-	union
-	{
-		double number;
-		OperatorType oType;
-	} value;
 	std::string innerText;
-	int level;
 	int index;
+	int level;
 };
 
-struct OperatorDefinition
-{
-	char charachter;
-	OperatorType type;
-};
-
-extern std::array<OperatorDefinition, 7> DEFINED_OPERATORS;
 
 extern int get_token_order(const Token& token);

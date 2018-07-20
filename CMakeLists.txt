@@ -12,12 +12,14 @@ set(SRC
 		src/node.cpp
 		src/utils.hpp
 		src/utils.cpp
-		src/lester.hpp
-		src/lester.cpp
+		src/tree.hpp
+		src/tree.cpp
 		src/evaluate.hpp
 		src/evaluate.cpp
 		src/defined.hpp
 		src/defined.cpp
+		src/lexer.hpp
+		src/lexer.cpp
 		)
 		
 add_executable(MathExParser ${SRC})
