@@ -17,6 +17,7 @@ enum class MathOperationType
 	Minus,
 	Multiply,
 	Divide,
+	Exponent,
 	UNKNOWN
 };
 

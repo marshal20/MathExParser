@@ -14,14 +14,16 @@ int get_token_order(const Token& token)
 
 	if (token.type == TokenType::Operator)
 	{
-		if (token.innerText == "/")
+		if (token.innerText == "^")
 			return 3;
-		if (token.innerText == "*")
+		if (token.innerText == "/")
 			return 4;
-		if (token.innerText == "-")
+		if (token.innerText == "*")
 			return 5;
-		if (token.innerText == "+")
+		if (token.innerText == "-")
 			return 6;
+		if (token.innerText == "+")
+			return 7;
 	}
 
 	throw std::exception("Unknown order of token.");

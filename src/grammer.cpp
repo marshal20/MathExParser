@@ -22,7 +22,7 @@ namespace DEFINED
 	}
 
 	const std::string DIVIDORS = ",";
-	const std::string OPERATIONS = "+-*/";
+	const std::string OPERATIONS = "+-*/^";
 
 	const std::string OPERATORS = BRACKETS::OPEN + BRACKETS::CLOSE + DIVIDORS + OPERATIONS;
 }
@@ -52,6 +52,7 @@ MathOperationType get_mathOperationType(const Token& token)
 	case '-': return MathOperationType::Minus; break;
 	case '*': return MathOperationType::Multiply; break;
 	case '/': return MathOperationType::Divide; break;
+	case '^': return MathOperationType::Exponent; break;
 	default: return MathOperationType::UNKNOWN; break;
 	}
 }

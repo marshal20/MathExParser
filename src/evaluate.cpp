@@ -56,6 +56,16 @@ double divide(const Node* node)
 	return value;
 }
 
+double exponent(const Node* node)
+{
+	check_operator_values(node);
+
+	double value = evaluate(node->childList[0]);
+	for (unsigned int i = 1; i < node->childList.size(); i++)
+		value = std::pow(value, evaluate(node->childList[i]));
+	return value;
+}
+
 double number(const Node* node)
 {
 	double value = std::stod(node->token.innerText);
@@ -112,6 +122,7 @@ double evaluate(const Node* node)
 			case MathOperationType::Minus: return minus(node);
 			case MathOperationType::Multiply: return multiply(node);
 			case MathOperationType::Divide: return divide(node);
+			case MathOperationType::Exponent: return exponent(node);
 			}
 		default:
 			std::string error_msg = std::string("Can't evaluate node: ") + node->token.innerText 
