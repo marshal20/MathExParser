@@ -81,7 +81,7 @@ double evaluate(const Node* node)
 		case TokenType::Name: return name(node);
 		case TokenType::Number: return number(node);
 		case TokenType::Operator:
-			switch (getMathOperationType(node->token))
+			switch (get_mathOperationType(node->token))
 			{
 			case MathOperationType::Plus: return plus(node);
 			case MathOperationType::Minus: return minus(node);
