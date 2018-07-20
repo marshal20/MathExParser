@@ -58,8 +58,6 @@ double divide(const Node* node)
 
 double number(const Node* node)
 {
-	check_operator_values(node);
-
 	double value = std::stod(node->token.innerText);
 	for (unsigned int i = 0; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);

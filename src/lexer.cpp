@@ -43,7 +43,9 @@ void tokenize(std::vector<Token>& tokenList, const std::vector<char>& parsed)
 		{
 			if(innerText != "")
 				tokenList.push_back({ firstTokenType, innerText, firstIndex, 0 });
-			innerText = curC;
+			innerText.clear();
+			if (curType != TokenType::UNKNOWN) // only set the new charachter if not Blanc
+				innerText = curC;
 			firstTokenType = curType;
 			firstIndex = i;
 			continue;
