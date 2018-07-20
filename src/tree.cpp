@@ -22,7 +22,7 @@ int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 	for (unsigned int i = openBracket; i < tokenList.size(); i++)
 	{
 		if (tokenList[i].type != TokenType::Operator) continue;
-		if (getOperatorType(tokenList[i]) == OperatorType::CloseBracket && tokenList[i].level == curLevel)
+		if (get_operatorType(tokenList[i]) == OperatorType::CloseBracket && tokenList[i].level == curLevel)
 			return i;
 	}
 
@@ -42,7 +42,7 @@ Node* basic_operator_token(Node* head, const Token& token)
 		return newnode;
 	}
 
-	if (getMathOperationType(head->parent->token) == getMathOperationType(token))
+	if (get_mathOperationType(head->parent->token) == get_mathOperationType(token))
 		return head->parent;
 
 	Node* newnode = new_node();
@@ -83,7 +83,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	int curLevel = tokenList[openBracket + 1].level;
 	for (int j = openBracket + 1; j < closeBracket; j++)
 	{
-		if (tokenList[j].level == curLevel && tokenList[j].type == TokenType::Operator && getOperatorType(tokenList[j]) == OperatorType::Dividor)
+		if (tokenList[j].level == curLevel && tokenList[j].type == TokenType::Operator && get_operatorType(tokenList[j]) == OperatorType::Dividor)
 		{
 			grouptokenLists.push_back(std::vector<Token>());
 			continue;
@@ -98,7 +98,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	// add all the children which are separated with commas
 	for (const std::vector<Token>& sGroup : grouptokenLists)
 	{
-		Node* groupHead = parse_tokenList(sGroup);
+		Node* groupHead = create_tree(sGroup);
 		addchild_node(group, groupHead);
 	}
 		
@@ -125,7 +125,7 @@ Node* name_token(Node* head, const Token& token)
 	return newnode;
 }
 
-Node* parse_tokenList(const std::vector<Token>& tokenList)
+Node* create_tree(const std::vector<Token>& tokenList)
 {
 	Node* head = nullptr;
 
@@ -134,7 +134,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 		const Token& token = tokenList[i];
 		
 		// check if we have a group inside brackets
-		if (token.type == TokenType::Operator && getOperatorType(token) == OperatorType::OpenBracket)
+		if (token.type == TokenType::Operator && get_operatorType(token) == OperatorType::OpenBracket)
 		{
 			int closebracket = get_close_pracket(i, tokenList);
 			head = handleGroup(tokenList, head, i, closebracket);

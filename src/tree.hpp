@@ -2,4 +2,4 @@
 #include <vector>
 #include "node.hpp"
 
-extern Node* parse_tokenList(const std::vector<Token>& tokenList);
+extern Node* create_tree(const std::vector<Token>& tokenList);

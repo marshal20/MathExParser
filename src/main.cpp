@@ -15,7 +15,7 @@ int main()
 	std::vector<Token> tokenList;
 	tokenize(tokenList, parsed);
 
-	Node* head = parse_tokenList(tokenList);
+	Node* head = create_tree(tokenList);
 
 	print_node(head);
 	std::cout << std::endl;

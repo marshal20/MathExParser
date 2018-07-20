@@ -27,7 +27,7 @@ namespace DEFINED
 	const std::string OPERATORS = BRACKETS::OPEN + BRACKETS::CLOSE + DIVIDORS + OPERATIONS;
 }
 
-extern OperatorType getOperatorType(const Token& token)
+extern OperatorType get_operatorType(const Token& token)
 {
 	if (DEFINED::BRACKETS::OPEN.find(token.innerText) != std::string::npos)
 		return OperatorType::OpenBracket;
@@ -44,7 +44,7 @@ extern OperatorType getOperatorType(const Token& token)
 	return OperatorType::UNKNOWN;
 }
 
-MathOperationType getMathOperationType(const Token& token)
+MathOperationType get_mathOperationType(const Token& token)
 {
 	switch (token.innerText[0])
 	{
@@ -56,7 +56,7 @@ MathOperationType getMathOperationType(const Token& token)
 	}
 }
 
-TokenType getCharType(const char c)
+TokenType get_charType(const char c)
 {
 	if (DEFINED::OPERATORS.find(c) != std::string::npos)
 		return TokenType::Operator;
@@ -73,7 +73,7 @@ TokenType getCharType(const char c)
 	throw std::exception("Undefined charachter.");
 }
 
-bool isNewToken(const TokenType lastType, const char curC)
+bool is_new_token(const TokenType lastType, const char curC)
 {
 	if (lastType == TokenType::UNKNOWN)
 		return true;
