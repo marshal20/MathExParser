@@ -3,7 +3,7 @@
 
 namespace DEFINED
 {
-	const std::string BLANCHCHARS = " \t";
+	const std::string BLANKCHARS = " \t";
 	
 	namespace CHARS
 	{
@@ -67,7 +67,7 @@ TokenType get_charType(const char c)
 	if (DEFINED::NAME.find(c) != std::string::npos)
 		return TokenType::Name;
 
-	if (DEFINED::BLANCHCHARS.find(c) != std::string::npos)
+	if (DEFINED::BLANKCHARS.find(c) != std::string::npos)
 		return TokenType::UNKNOWN;
 
 	throw std::exception("Undefined charachter.");
@@ -78,7 +78,7 @@ bool is_new_token(const TokenType lastType, const char curC)
 	if (lastType == TokenType::UNKNOWN)
 		return true;
 
-	if (DEFINED::BLANCHCHARS.find(curC) != std::string::npos)
+	if (DEFINED::BLANKCHARS.find(curC) != std::string::npos)
 		return true;
 
 	if (lastType == TokenType::Operator)
