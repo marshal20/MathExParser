@@ -4,8 +4,22 @@
 #include "grammer.hpp"
 #include <string>
 
+void check_operator_values(const Node* node)
+{
+	if (node->childList.size() < 2)
+	{
+		std::string error_msg =
+			std::string("Operator [") + node->token.innerText + "] can't be evaluated with less than 2 values, index: "
+			+ std::to_string(node->token.index);
+		throw std::exception(error_msg.c_str());
+	}
+	
+}
+
 double plus(const Node* node)
 {
+	check_operator_values(node);
+
 	double value = 0;
 	for (const Node* node : node->childList)
 		value += evaluate(node);
@@ -14,6 +28,8 @@ double plus(const Node* node)
 
 double minus(const Node* node)
 {
+	check_operator_values(node);
+
 	double value = evaluate(node->childList[0]);
 	for (unsigned int i = 1; i < node->childList.size(); i++)
 		value -= evaluate(node->childList[i]);
@@ -22,6 +38,8 @@ double minus(const Node* node)
 
 double multiply(const Node* node)
 {
+	check_operator_values(node);
+
 	double value = evaluate(node->childList[0]);
 	for (unsigned int i = 1; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
@@ -30,6 +48,8 @@ double multiply(const Node* node)
 
 double divide(const Node* node)
 {
+	check_operator_values(node);
+
 	double value = evaluate(node->childList[0]);
 	for (unsigned int i = 1; i < node->childList.size(); i++)
 		value /= evaluate(node->childList[i]);
@@ -38,6 +58,8 @@ double divide(const Node* node)
 
 double number(const Node* node)
 {
+	check_operator_values(node);
+
 	double value = std::stod(node->token.innerText);
 	for (unsigned int i = 0; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
@@ -56,9 +78,9 @@ double name(const Node* node)
 {
 	// function
 	auto ffound = definedFunc.find(node->token.innerText);
-	if (ffound != definedFunc.end()) {
+	if (ffound != definedFunc.end() && node->childList.size() != 0) {
 		Args args;
-		if (node->childList.size() == 0) return 1; // return if we have no groups
+
 		for(const Node* cnode : node->childList[0]->childList)
 			args.push_back(evaluate(cnode));
 		return ffound->second(args);
@@ -66,12 +88,17 @@ double name(const Node* node)
 
 	// constant
 	auto cfound = definedConst.find(node->token.innerText);
-	if (cfound == definedConst.end()) return 1;
+	if (cfound != definedConst.end())
+	{
+		double value = cfound->second;
+		for (unsigned int i = 0; i < node->childList.size(); i++)
+			value *= evaluate(node->childList[i]);
+		return value;
+	}
 
-	double value = cfound->second;
-	for (unsigned int i = 0; i < node->childList.size(); i++)
-		value *= evaluate(node->childList[i]);
-	return value;
+	std::string error_msg = std::string("Undefined function or constant name: ")
+		+ node->token.innerText + ", index: " + std::to_string(node->token.index);
+	throw std::exception(error_msg.c_str());
 }
 
 double evaluate(const Node* node)
@@ -89,7 +116,9 @@ double evaluate(const Node* node)
 			case MathOperationType::Divide: return divide(node);
 			}
 		default:
-			throw std::exception("Can't evaluate node");
+			std::string error_msg = std::string("Can't evaluate node: ") + node->token.innerText 
+				+ ", index: " + std::to_string(node->token.index);
+			throw std::exception(error_msg.c_str());
 	}
 	
 	return 0.0;
