@@ -1,9 +1,10 @@
 #include "parser.hpp"
-#include "utils.hpp"
+//#include "utils.hpp"
 #include <string>
 #include <iostream>
 #include <regex>
 
+/*
 OperatorType char_to_operatorType(const char charachter)
 {
 	for (auto def : DEFINED_OPERATORS)
@@ -92,7 +93,7 @@ std::vector<Token> parse_equation(std::string equation)
 	}
 
 	return temporary;
-}
+}*/
 
 
 void parse(std::vector<char>& out, const std::string& equation)

@@ -2,42 +2,27 @@
 #include <array>
 #include <string>
 
-enum class TokenType
+enum class Type
 {
 	Number,
 	Operator,
-	Group,
-	Name,
-	UNKNOWN
-};
-
-enum class OperatorType
-{
-	plus = 1,
-	minus,
-	divide,
-	multiply,
-
-	openBracket,
-	closeBracket,
-	comma,
-
-	UNKNOWN
+	Name
 };
 
 struct Token
 {
+	Type type;
 	std::string innerText;
-	int level;
 	int index;
+	int level;
 };
 
-struct OperatorDefinition
+/*struct OperatorDefinition
 {
 	char charachter;
 	OperatorType type;
 };
 
 extern std::array<OperatorDefinition, 7> DEFINED_OPERATORS;
-
+*/
 extern int get_token_order(const Token& token);

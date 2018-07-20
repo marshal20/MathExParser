@@ -1,5 +1,6 @@
 #include "internalTypes.hpp"
 
+/*
 std::array<OperatorDefinition, 7> DEFINED_OPERATORS{ {
 	{ '+', OperatorType::plus },
 	{ '-', OperatorType::minus },
@@ -35,3 +36,4 @@ int get_token_order(const Token& token)
 
 	return -1;
 }
+*/
