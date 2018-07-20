@@ -9,11 +9,11 @@
 
 int main()
 {
-	std::string equation = "5.5*max(0,sin(2))+2";
+	std::string equation = "5.5* max(0,sin(2))+2";
 	std::vector<char> parsed;
 	parse(parsed, equation);
-	std::vector<Token> lexed;
-	lexer(lexed, parsed);
+	std::vector<Token> tokenList;
+	tokenize(tokenList, parsed);
 
 	/*auto tokenList = parse_equation(equation);
 

@@ -2,4 +2,4 @@
 #include <vector>
 #include "internalTypes.hpp"
 
-extern void lexer(std::vector<Token>& out, const std::vector<char>& parsed);
+extern void tokenize(std::vector<Token>& out, const std::vector<char>& parsed);

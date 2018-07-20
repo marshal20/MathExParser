@@ -6,7 +6,8 @@ enum class Type
 {
 	Number,
 	Operator,
-	Name
+	Name,
+	UNKNOWN
 };
 
 struct Token
