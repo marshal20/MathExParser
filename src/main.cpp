@@ -8,12 +8,16 @@
 
 int main()
 {
-	std::string equation = "5.5* max(0,sin(2))+2";
+	std::string equation = "5.5*max(0,sin(2))+2";
 	std::vector<char> parsed;
 	parse(parsed, equation);
+
 	std::vector<Token> tokenList;
 	tokenize(tokenList, parsed);
+
 	Node* head = parse_tokenList(tokenList);
+	print_node(head);
+	std::cin.get();
 
 	/*auto tokenList = parse_equation(equation);
 

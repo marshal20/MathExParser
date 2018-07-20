@@ -24,7 +24,7 @@ int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 	for (int i = openBracket; i < tokenList.size(); i++)
 	{
 		if (tokenList[i].type != TokenType::Operator) continue;
-		if (tokenList[i].innerText == openBracketstr && tokenList[i].level == curLevel)
+		if (getOperatorType(tokenList[i]) == OperatorType::CloseBracket && tokenList[i].level == curLevel)
 			return i;
 	}
 
