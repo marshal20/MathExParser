@@ -11,6 +11,15 @@ enum class Type
 	UNKNOWN
 };
 
+enum class OperatorType
+{
+	OpenBracket,
+	CloseBracket,
+	Dividor,
+	Operation,
+	UNKNOWN
+};
+
 struct Token
 {
 	Type type;

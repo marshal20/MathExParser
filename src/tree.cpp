@@ -44,7 +44,7 @@ Node* basic_operator_token(Node* head, const Token& token)
 		return newnode;
 	}
 
-	if (head->parent->token.value.oType == token.value.oType)
+	if (getOperatorType(head->parent->token) == getOperatorType(token))
 		return head->parent;
 
 	Node* newnode = new_node();
@@ -85,7 +85,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	int curLevel = tokenList[openBracket + 1].level;
 	for (int j = openBracket + 1; j < closeBracket; j++)
 	{
-		if (tokenList[j].level == curLevel && tokenList[j].type == Type::Operator && isDividor(tokenList[j]))
+		if (tokenList[j].level == curLevel && tokenList[j].type == Type::Operator && getOperatorType(tokenList[j]) == OperatorType::Dividor)
 		{
 			grouptokenLists.push_back(std::vector<Token>());
 			continue;
@@ -136,7 +136,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 		const Token& token = tokenList[i];
 		
 		// check if we have a group inside brackets
-		if (token.type == Type::Operator && isOpenBracket(token))
+		if (token.type == Type::Operator && getOperatorType(token) == OperatorType::OpenBracket)
 		{
 			int closebracket = get_close_pracket(i, tokenList);
 			head = handleGroup(tokenList, head, i, closebracket);

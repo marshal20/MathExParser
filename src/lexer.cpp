@@ -18,21 +18,24 @@ namespace DEFINED
 	}
 
 	const std::string DIVIDORS = ",";
+	const std::string OPERATIONS = "+-*/";
 }
 
-bool isOpenBracket(const Token& token)
+extern OperatorType getOperatorType(const Token& token)
 {
-	return (DEFINED::BRACKETS::OPEN.find(token.innerText) != std::string::npos);
-}
+	if (DEFINED::BRACKETS::OPEN.find(token.innerText) != std::string::npos)
+		return OperatorType::OpenBracket;
 
-bool isCloseBracket(const Token& token)
-{
-	return (DEFINED::BRACKETS::CLOSE.find(token.innerText) != std::string::npos);
-}
+	if (DEFINED::BRACKETS::CLOSE.find(token.innerText) != std::string::npos)
+		return OperatorType::CloseBracket;
 
-bool isDividor(const Token& token)
-{
-	return (DEFINED::DIVIDORS.find(token.innerText) != std::string::npos);
+	if (DEFINED::DIVIDORS.find(token.innerText) != std::string::npos)
+		return OperatorType::Dividor;
+
+	if (DEFINED::OPERATIONS.find(token.innerText) != std::string::npos)
+		return OperatorType::Operation;
+
+	return OperatorType::UNKNOWN;
 }
 
 Type getCharType(const char c)
