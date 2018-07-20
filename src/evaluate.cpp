@@ -1,5 +1,7 @@
 #include "evaluate.hpp"
 #include "defined.hpp"
+#include "lexer.hpp"
+#include <string>
 
 double plus(const Node* node)
 {
@@ -12,7 +14,7 @@ double plus(const Node* node)
 double minus(const Node* node)
 {
 	double value = evaluate(node->childList[0]);
-	for (int i = 1; i < node->childList.size(); i++)
+	for (unsigned int i = 1; i < node->childList.size(); i++)
 		value -= evaluate(node->childList[i]);
 	return value;
 }
@@ -20,7 +22,7 @@ double minus(const Node* node)
 double multiply(const Node* node)
 {
 	double value = evaluate(node->childList[0]);
-	for (int i = 1; i < node->childList.size(); i++)
+	for (unsigned int i = 1; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
 	return value;
 }
@@ -28,15 +30,15 @@ double multiply(const Node* node)
 double divide(const Node* node)
 {
 	double value = evaluate(node->childList[0]);
-	for (int i = 1; i < node->childList.size(); i++)
+	for (unsigned int i = 1; i < node->childList.size(); i++)
 		value /= evaluate(node->childList[i]);
 	return value;
 }
 
 double number(const Node* node)
 {
-	double value = node->token.value.number;
-	for (int i = 0; i < node->childList.size(); i++)
+	double value = std::stod(node->token.innerText);
+	for (unsigned int i = 0; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
 	return value;
 }
@@ -44,7 +46,7 @@ double number(const Node* node)
 double group(const Node* node)
 {
 	double value = 1;
-	for (int i = 0; i < node->childList.size(); i++)
+	for (unsigned int i = 0; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
 	return value;
 }
@@ -66,7 +68,7 @@ double name(const Node* node)
 	if (cfound == definedConst.end()) return 1;
 
 	double value = cfound->second;
-	for (int i = 0; i < node->childList.size(); i++)
+	for (unsigned int i = 0; i < node->childList.size(); i++)
 		value *= evaluate(node->childList[i]);
 	return value;
 }
@@ -78,12 +80,12 @@ double evaluate(const Node* node)
 		case TokenType::Name: return name(node);
 		case TokenType::Number: return number(node);
 		case TokenType::Operator:
-			switch (node->token.value.oType)
+			switch (getMathOperationType(node->token))
 			{
-			case OperatorType::plus: return plus(node);
-			case OperatorType::minus: return minus(node);
-			case OperatorType::multiply: return multiply(node);
-			case OperatorType::divide: return divide(node);
+			case MathOperationType::Plus: return plus(node);
+			case MathOperationType::Minus: return minus(node);
+			case MathOperationType::Multiply: return multiply(node);
+			case MathOperationType::Divide: return divide(node);
 			}
 	}
 	

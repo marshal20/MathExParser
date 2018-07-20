@@ -20,6 +20,15 @@ enum class OperatorType
 	UNKNOWN
 };
 
+enum class MathOperationType
+{
+	Plus,
+	Minus,
+	Multiply,
+	Divide,
+	UNKNOWN
+};
+
 struct Token
 {
 	TokenType type;

@@ -38,6 +38,18 @@ extern OperatorType getOperatorType(const Token& token)
 	return OperatorType::UNKNOWN;
 }
 
+MathOperationType getMathOperationType(const Token& token)
+{
+	switch (token.innerText[0])
+	{
+	case '+': return MathOperationType::Plus; break;
+	case '-': return MathOperationType::Minus; break;
+	case '*': return MathOperationType::Multiply; break;
+	case '/': return MathOperationType::Divide; break;
+	default: return MathOperationType::UNKNOWN; break;
+	}
+}
+
 TokenType getCharType(const char c)
 {
 	if (DEFINED::OPERATORS.find(c) != std::string::npos)

@@ -14,10 +14,10 @@ set(SRC
 		src/utils.cpp
 		src/tree.hpp
 		src/tree.cpp
-#		src/evaluate.hpp
-#		src/evaluate.cpp
-#		src/defined.hpp
-#		src/defined.cpp
+		src/evaluate.hpp
+		src/evaluate.cpp
+		src/defined.hpp
+		src/defined.cpp
 		src/lexer.hpp
 		src/lexer.cpp
 		)

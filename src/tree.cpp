@@ -44,7 +44,7 @@ Node* basic_operator_token(Node* head, const Token& token)
 		return newnode;
 	}
 
-	if (getOperatorType(head->parent->token) == getOperatorType(token))
+	if (getMathOperationType(head->parent->token) == getMathOperationType(token))
 		return head->parent;
 
 	Node* newnode = new_node();
