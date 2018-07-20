@@ -10,8 +10,8 @@ set(SRC
 		src/parser.cpp
 		src/node.hpp
 		src/node.cpp
-#		src/utils.hpp
-#		src/utils.cpp
+		src/utils.hpp
+		src/utils.cpp
 		src/tree.hpp
 		src/tree.cpp
 #		src/evaluate.hpp

@@ -20,8 +20,8 @@ std::string strtokenvalue(const Token& token)
 {
 	switch (token.type)
 	{
-	case TokenType::Number: return std::to_string(token.value.number);
-	case TokenType::Operator: return std::string() + operatorType_to_char(token.value.oType);
+	case TokenType::Number: return token.innerText;
+	case TokenType::Operator: return token.innerText;
 	case TokenType::Name: return token.innerText;
 	default: return "";
 	}

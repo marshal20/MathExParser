@@ -1,11 +1,10 @@
 #include <iostream>
 #include <string>
 #include "parser.hpp"
-//#include "lester.hpp"
-//#include "utils.hpp"
-//#include "lester.hpp"
 //#include "evaluate.hpp"
 #include "lexer.hpp"
+#include "tree.hpp"
+#include "utils.hpp"
 
 int main()
 {

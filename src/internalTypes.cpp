@@ -1,15 +1,5 @@
 #include "internalTypes.hpp"
 
-/*
-std::array<OperatorDefinition, 7> DEFINED_OPERATORS{ {
-	{ '+', OperatorType::plus },
-	{ '-', OperatorType::minus },
-	{ '/', OperatorType::divide },
-	{ '*', OperatorType::multiply },
-	{ '(', OperatorType::openBracket },
-	{ ')', OperatorType::closeBracket },
-	{ ',', OperatorType::comma }
-} };
 
 int get_token_order(const Token& token)
 {
@@ -24,16 +14,15 @@ int get_token_order(const Token& token)
 
 	if (token.type == TokenType::Operator)
 	{
-		if (token.value.oType == OperatorType::divide)
+		if (token.innerText == "/")
 			return 3;
-		if (token.value.oType == OperatorType::multiply)
+		if (token.innerText == "*")
 			return 4;
-		if (token.value.oType == OperatorType::minus)
+		if (token.innerText == "-")
 			return 5;
-		if (token.value.oType == OperatorType::plus)
+		if (token.innerText == "+")
 			return 6;
 	}
 
-	return -1;
+	throw std::exception("Unknown order of token.");
 }
-*/

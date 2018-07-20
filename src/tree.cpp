@@ -23,7 +23,7 @@ int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 	std::string openBracketstr = tokenList[openBracket].innerText;
 	for (int i = openBracket; i < tokenList.size(); i++)
 	{
-		if (tokenList[i].type != Type::Operator) continue;
+		if (tokenList[i].type != TokenType::Operator) continue;
 		if (tokenList[i].innerText == openBracketstr && tokenList[i].level == curLevel)
 			return i;
 	}
@@ -85,7 +85,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	int curLevel = tokenList[openBracket + 1].level;
 	for (int j = openBracket + 1; j < closeBracket; j++)
 	{
-		if (tokenList[j].level == curLevel && tokenList[j].type == Type::Operator && getOperatorType(tokenList[j]) == OperatorType::Dividor)
+		if (tokenList[j].level == curLevel && tokenList[j].type == TokenType::Operator && getOperatorType(tokenList[j]) == OperatorType::Dividor)
 		{
 			grouptokenLists.push_back(std::vector<Token>());
 			continue;
@@ -96,7 +96,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	Node* group = new_node();
 	zero_node(group);
 	group->token.index = token.index;
-	group->token.type = Type::Group;
+	group->token.type = TokenType::Group;
 	// add all the children which are separated with commas
 	for (const std::vector<Token>& sGroup : grouptokenLists)
 	{
@@ -136,7 +136,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 		const Token& token = tokenList[i];
 		
 		// check if we have a group inside brackets
-		if (token.type == Type::Operator && getOperatorType(token) == OperatorType::OpenBracket)
+		if (token.type == TokenType::Operator && getOperatorType(token) == OperatorType::OpenBracket)
 		{
 			int closebracket = get_close_pracket(i, tokenList);
 			head = handleGroup(tokenList, head, i, closebracket);
@@ -144,11 +144,11 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			continue;
 		}
 
-		if (token.type == Type::Operator)
+		if (token.type == TokenType::Operator)
 			head = basic_operator_token(head, token);
-		else if (token.type == Type::Number)
+		else if (token.type == TokenType::Number)
 			head = number_token(head, token);
-		else if (token.type == Type::Name)
+		else if (token.type == TokenType::Name)
 			head = number_token(head, token);
 	}
 

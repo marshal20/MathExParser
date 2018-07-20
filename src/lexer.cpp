@@ -38,40 +38,40 @@ extern OperatorType getOperatorType(const Token& token)
 	return OperatorType::UNKNOWN;
 }
 
-Type getCharType(const char c)
+TokenType getCharType(const char c)
 {
 	if (DEFINED::OPERATORS.find(c) != std::string::npos)
-		return Type::Operator;
+		return TokenType::Operator;
 
 	if (DEFINED::NUMBER_ELSE.find(c) != std::string::npos)
-		return Type::Number;
+		return TokenType::Number;
 
 	if (DEFINED::NAME_ELSE.find(c) != std::string::npos)
-		return Type::Name;
+		return TokenType::Name;
 
 	if (DEFINED::BLANCHCHARS.find(c) != std::string::npos)
-		return Type::UNKNOWN;
+		return TokenType::UNKNOWN;
 
 	throw std::exception("Undefined charachter.");
 }
 
-bool isNewToken(const Type lastType, const char curC)
+bool isNewToken(const TokenType lastType, const char curC)
 {
-	if (lastType == Type::UNKNOWN)
+	if (lastType == TokenType::UNKNOWN)
 		return true;
 
 	if (DEFINED::BLANCHCHARS.find(curC) != std::string::npos)
 		return true;
 
-	if (lastType == Type::Operator)
+	if (lastType == TokenType::Operator)
 		return true;
 
-	if (lastType == Type::Name && DEFINED::NAME_ELSE.find(curC) != std::string::npos)
+	if (lastType == TokenType::Name && DEFINED::NAME_ELSE.find(curC) != std::string::npos)
 		return false;
 		
-	if (lastType == Type::Number && DEFINED::NUMBER_ELSE.find(curC) != std::string::npos)
+	if (lastType == TokenType::Number && DEFINED::NUMBER_ELSE.find(curC) != std::string::npos)
 		return false;
-	else if (lastType == Type::Number && DEFINED::NAME_ELSE.find(curC) != std::string::npos)
+	else if (lastType == TokenType::Number && DEFINED::NAME_ELSE.find(curC) != std::string::npos)
 		throw std::exception("Unexpecter name charachter after a number.");
 
 	return true;
@@ -84,7 +84,7 @@ void updateLevels(std::vector<Token>& tokenList)
 	for (Token& token : tokenList)
 	{
 		token.level = level;
-		if (token.type != Type::Operator) continue; // skip if the type isn't operator
+		if (token.type != TokenType::Operator) continue; // skip if the type isn't operator
 
 		if (DEFINED::BRACKETS::OPEN.find(token.innerText) != std::string::npos)
 		{
@@ -104,13 +104,13 @@ void updateLevels(std::vector<Token>& tokenList)
 void tokenize(std::vector<Token>& tokenList, const std::vector<char>& parsed)
 {
 	std::string innerText;
-	Type firstTokenType = Type::UNKNOWN;
+	TokenType firstTokenType = TokenType::UNKNOWN;
 	int firstIndex = 0;
 
 	for (int i = 0; i < parsed.size(); i++)
 	{
 		const char curC = parsed[i];
-		const Type curType = getCharType(curC);
+		const TokenType curType = getCharType(curC);
 
 		if (isNewToken(firstTokenType, curC) || innerText.length() == 0)
 		{
