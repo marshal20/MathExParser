@@ -119,7 +119,7 @@ void tokenize(std::vector<Token>& tokenList, const std::vector<char>& parsed)
 	TokenType firstTokenType = TokenType::UNKNOWN;
 	int firstIndex = 0;
 
-	for (int i = 0; i < parsed.size(); i++)
+	for (unsigned int i = 0; i < parsed.size(); i++)
 	{
 		const char curC = parsed[i];
 		const TokenType curType = getCharType(curC);

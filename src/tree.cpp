@@ -21,7 +21,7 @@ int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 {
 	int curLevel = tokenList[openBracket].level;
 	std::string openBracketstr = tokenList[openBracket].innerText;
-	for (int i = openBracket; i < tokenList.size(); i++)
+	for (unsigned int i = openBracket; i < tokenList.size(); i++)
 	{
 		if (tokenList[i].type != TokenType::Operator) continue;
 		if (getOperatorType(tokenList[i]) == OperatorType::CloseBracket && tokenList[i].level == curLevel)
@@ -131,7 +131,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 {
 	Node* head = nullptr;
 
-	for (int i = 0; i < tokenList.size(); i++)
+	for (unsigned int i = 0; i < tokenList.size(); i++)
 	{
 		const Token& token = tokenList[i];
 		
