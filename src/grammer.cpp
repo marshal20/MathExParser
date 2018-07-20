@@ -3,13 +3,12 @@
 
 namespace DEFINED
 {
-	const std::string OPERATORS = "(){}[],+-*/";
 	const std::string BLANCHCHARS = " \t";
 
 	const std::string NUMBER_FIRST = "0123456789";
-	const std::string NUMBER_ELSE = "0123456789.";
+	const std::string NUMBER_ELSE = NUMBER_FIRST + ".";
 	const std::string NAME_FIRST = "abcdefghijklmnopqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXY_";
-	const std::string NAME_ELSE = "abcdefghijklmnopqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXY_0123456789.";
+	const std::string NAME_ELSE = NAME_FIRST + NUMBER_FIRST;
 
 	namespace BRACKETS
 	{
@@ -19,6 +18,8 @@ namespace DEFINED
 
 	const std::string DIVIDORS = ",";
 	const std::string OPERATIONS = "+-*/";
+
+	const std::string OPERATORS = BRACKETS::OPEN + BRACKETS::CLOSE + DIVIDORS + OPERATIONS;
 }
 
 extern OperatorType getOperatorType(const Token& token)
