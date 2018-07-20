@@ -93,3 +93,11 @@ std::vector<Token> parse_equation(std::string equation)
 
 	return temporary;
 }
+
+
+void parse(std::vector<char>& out, const std::string& equation)
+{
+	out.reserve(equation.length());
+	for (const char c : equation)
+		out.push_back(c);
+}

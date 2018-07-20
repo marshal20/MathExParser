@@ -27,12 +27,6 @@ enum class OperatorType
 
 struct Token
 {
-	TokenType type;
-	union
-	{
-		double number;
-		OperatorType oType;
-	} value;
 	std::string innerText;
 	int level;
 	int index;
