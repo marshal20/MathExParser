@@ -7,6 +7,7 @@ enum class Type
 	Number,
 	Operator,
 	Name,
+	Group,
 	UNKNOWN
 };
 

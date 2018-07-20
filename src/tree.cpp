@@ -85,7 +85,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	int curLevel = tokenList[openBracket + 1].level;
 	for (int j = openBracket + 1; j < closeBracket; j++)
 	{
-		if (tokenList[j].level == curLevel && tokenList[j].type == TokenType::Operator && tokenList[j].value.oType == OperatorType::comma)
+		if (tokenList[j].level == curLevel && tokenList[j].type == Type::Operator && isDividor(tokenList[j]))
 		{
 			grouptokenLists.push_back(std::vector<Token>());
 			continue;
@@ -96,7 +96,7 @@ Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBrack
 	Node* group = new_node();
 	zero_node(group);
 	group->token.index = token.index;
-	group->token.type = TokenType::Group;
+	group->token.type = Type::Group;
 	// add all the children which are separated with commas
 	for (const std::vector<Token>& sGroup : grouptokenLists)
 	{

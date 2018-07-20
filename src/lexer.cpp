@@ -16,6 +16,8 @@ namespace DEFINED
 		const std::string OPEN = "({[";
 		const std::string CLOSE = ")}]";
 	}
+
+	const std::string DIVIDORS = ",";
 }
 
 bool isOpenBracket(const Token& token)
@@ -26,6 +28,11 @@ bool isOpenBracket(const Token& token)
 bool isCloseBracket(const Token& token)
 {
 	return (DEFINED::BRACKETS::CLOSE.find(token.innerText) != std::string::npos);
+}
+
+bool isDividor(const Token& token)
+{
+	return (DEFINED::DIVIDORS.find(token.innerText) != std::string::npos);
 }
 
 Type getCharType(const char c)
