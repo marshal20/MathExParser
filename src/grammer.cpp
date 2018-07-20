@@ -4,11 +4,16 @@
 namespace DEFINED
 {
 	const std::string BLANCHCHARS = " \t";
+	
+	namespace CHARS
+	{
+		const std::string NUMBERS = "0123456789";
+		const std::string AZ_SMALL = "abcdefghijklmnopqrstuvwxy";
+		const std::string AZ_CAPITAL = "ABCDEFGHIJKLMNOPQRSTUVWXY";
+	}
 
-	const std::string NUMBER_FIRST = "0123456789";
-	const std::string NUMBER_ELSE = NUMBER_FIRST + ".";
-	const std::string NAME_FIRST = "abcdefghijklmnopqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXY_";
-	const std::string NAME_ELSE = NAME_FIRST + NUMBER_FIRST;
+	const std::string NUMBER = CHARS::NUMBERS + ".";
+	const std::string NAME = CHARS::AZ_SMALL + CHARS::AZ_CAPITAL + "_" + CHARS::NUMBERS;
 
 	namespace BRACKETS
 	{
@@ -56,10 +61,10 @@ TokenType getCharType(const char c)
 	if (DEFINED::OPERATORS.find(c) != std::string::npos)
 		return TokenType::Operator;
 
-	if (DEFINED::NUMBER_ELSE.find(c) != std::string::npos)
+	if (DEFINED::NUMBER.find(c) != std::string::npos)
 		return TokenType::Number;
 
-	if (DEFINED::NAME_ELSE.find(c) != std::string::npos)
+	if (DEFINED::NAME.find(c) != std::string::npos)
 		return TokenType::Name;
 
 	if (DEFINED::BLANCHCHARS.find(c) != std::string::npos)
@@ -79,12 +84,12 @@ bool isNewToken(const TokenType lastType, const char curC)
 	if (lastType == TokenType::Operator)
 		return true;
 
-	if (lastType == TokenType::Name && DEFINED::NAME_ELSE.find(curC) != std::string::npos)
+	if (lastType == TokenType::Name && DEFINED::NAME.find(curC) != std::string::npos)
 		return false;
 
-	if (lastType == TokenType::Number && DEFINED::NUMBER_ELSE.find(curC) != std::string::npos)
+	if (lastType == TokenType::Number && DEFINED::NUMBER.find(curC) != std::string::npos)
 		return false;
-	else if (lastType == TokenType::Number && DEFINED::NAME_ELSE.find(curC) != std::string::npos)
+	else if (lastType == TokenType::Number && DEFINED::NAME.find(curC) != std::string::npos)
 		throw std::exception("Unexpecter name charachter after a number.");
 
 	return true;
