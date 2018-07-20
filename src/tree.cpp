@@ -20,14 +20,15 @@ Node* get_lowest_parent(Node* curnode, int order)
 int get_close_pracket(int openBracket, const std::vector<Token>& tokenList)
 {
 	int curLevel = tokenList[openBracket].level;
+	std::string openBracketstr = tokenList[openBracket].innerText;
 	for (int i = openBracket; i < tokenList.size(); i++)
 	{
-		if (tokenList[i].type != TokenType::Operator) continue;
-		if (tokenList[i].value.oType == OperatorType::closeBracket && tokenList[i].level == curLevel)
+		if (tokenList[i].type != Type::Operator) continue;
+		if (tokenList[i].innerText == openBracketstr && tokenList[i].level == curLevel)
 			return i;
 	}
 
-	return -1;
+	throw std::exception("Expected close bracket.");
 }
 
 
@@ -135,7 +136,7 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 		const Token& token = tokenList[i];
 		
 		// check if we have a group inside brackets
-		if (token.type == TokenType::Operator && token.value.oType == OperatorType::openBracket)
+		if (token.type == Type::Operator && isOpenBracket(token))
 		{
 			int closebracket = get_close_pracket(i, tokenList);
 			head = handleGroup(tokenList, head, i, closebracket);
@@ -143,11 +144,11 @@ Node* parse_tokenList(const std::vector<Token>& tokenList)
 			continue;
 		}
 
-		if (token.type == TokenType::Operator)
+		if (token.type == Type::Operator)
 			head = basic_operator_token(head, token);
-		else if (token.type == TokenType::Number)
+		else if (token.type == Type::Number)
 			head = number_token(head, token);
-		else if (token.type == TokenType::Name)
+		else if (token.type == Type::Name)
 			head = number_token(head, token);
 	}
 

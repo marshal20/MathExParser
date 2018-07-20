@@ -18,6 +18,16 @@ namespace DEFINED
 	}
 }
 
+bool isOpenBracket(const Token& token)
+{
+	return (DEFINED::BRACKETS::OPEN.find(token.innerText) != std::string::npos);
+}
+
+bool isCloseBracket(const Token& token)
+{
+	return (DEFINED::BRACKETS::CLOSE.find(token.innerText) != std::string::npos);
+}
+
 Type getCharType(const char c)
 {
 	if (DEFINED::OPERATORS.find(c) != std::string::npos)
