@@ -8,12 +8,12 @@ set(SRC
 		src/internalTypes.cpp
 		src/parser.hpp
 		src/parser.cpp
-#		src/node.hpp
-#		src/node.cpp
+		src/node.hpp
+		src/node.cpp
 #		src/utils.hpp
 #		src/utils.cpp
-#		src/lester.hpp
-#		src/lester.cpp
+		src/tree.hpp
+		src/tree.cpp
 #		src/evaluate.hpp
 #		src/evaluate.cpp
 #		src/defined.hpp

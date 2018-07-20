@@ -14,6 +14,7 @@ int main()
 	parse(parsed, equation);
 	std::vector<Token> tokenList;
 	tokenize(tokenList, parsed);
+	Node* head = parse_tokenList(tokenList);
 
 	/*auto tokenList = parse_equation(equation);
 
