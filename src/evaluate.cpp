@@ -1,6 +1,7 @@
 #include "evaluate.hpp"
 #include "defined.hpp"
 #include "lexer.hpp"
+#include "grammer.hpp"
 #include <string>
 
 double plus(const Node* node)
@@ -87,6 +88,8 @@ double evaluate(const Node* node)
 			case MathOperationType::Multiply: return multiply(node);
 			case MathOperationType::Divide: return divide(node);
 			}
+		default:
+			throw std::exception("Can't evaluate node");
 	}
 	
 	return 0.0;

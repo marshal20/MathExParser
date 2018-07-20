@@ -11,24 +11,6 @@ enum class TokenType
 	UNKNOWN
 };
 
-enum class OperatorType
-{
-	OpenBracket,
-	CloseBracket,
-	Dividor,
-	Operation,
-	UNKNOWN
-};
-
-enum class MathOperationType
-{
-	Plus,
-	Minus,
-	Multiply,
-	Divide,
-	UNKNOWN
-};
-
 struct Token
 {
 	TokenType type;
