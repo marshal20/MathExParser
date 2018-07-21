@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-std::string strtokenType(TokenType tokenType)
+std::string str_tokenType(TokenType tokenType)
 {
 	switch (tokenType)
 	{
@@ -16,7 +16,7 @@ std::string strtokenType(TokenType tokenType)
 	}
 }
 
-std::string strtokenvalue(const Token& token)
+std::string str_tokenvalue(const Token& token)
 {
 	switch (token.type)
 	{
@@ -29,8 +29,8 @@ std::string strtokenvalue(const Token& token)
 
 void print_token(const Token& token)
 {
-	std::string typeName = strtokenType(token.type);
-	std::string value = strtokenvalue(token);
+	std::string typeName = str_tokenType(token.type);
+	std::string value = str_tokenvalue(token);
 	std::cout << "- Token: index(" << token.index << "), type: " << typeName;
 	if (value != "")
 		std::cout << ", value: " << value;

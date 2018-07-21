@@ -76,7 +76,7 @@ Node* number_token(Node* head, const Token& token)
 	return newnode;
 }
 
-Node* handleGroup(const std::vector<Token>& tokenList, Node* head, int openBracket, int closeBracket)
+Node* handle_group(const std::vector<Token>& tokenList, Node* head, int openBracket, int closeBracket)
 {
 	const Token& token = tokenList[openBracket];
 
@@ -141,7 +141,7 @@ Node* create_tree(const std::vector<Token>& tokenList)
 		if (token.type == TokenType::Operator && get_operatorType(token) == OperatorType::OpenBracket)
 		{
 			int closebracket = get_close_pracket(i, tokenList);
-			head = handleGroup(tokenList, head, i, closebracket);
+			head = handle_group(tokenList, head, i, closebracket);
 			i = closebracket;
 			continue;
 		}
