@@ -5,6 +5,9 @@ project(MathExParser)
 set(SRC 
 		src/main.cpp
 
+		src/mathparser.hpp
+		src/mathparser.cpp
+
 		src/internalTypes.hpp
 		src/internalTypes.cpp
 		src/defined.hpp
